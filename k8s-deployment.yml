@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filter-results-top-n
+  labels:
+    app: filter-results-top-n
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filter-results-top-n
+  template:
+    metadata:
+      labels:
+        app: filter-results-top-n
+    spec:
+      containers:
+      - image: filter_results_top_n
+        name: filter-results-top-n
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 7092
