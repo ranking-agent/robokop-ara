@@ -3,9 +3,8 @@ version: '3.0'
 services:
   filter_results_top_n:
     image: filter_results_top_n
+    container_name: filter_results_top_n
     build:
       context: .
-    environment:
-      - PORT
     ports:
-      - '${PORT}:${PORT}'
+      - '${PORT}:7092'

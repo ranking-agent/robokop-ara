@@ -9,6 +9,4 @@ ADD ./app ./app
 ADD ./main.sh ./main.sh
 
 # set up entrypoint
-CMD ["./main.sh"]
-ARG PORT=8080
-EXPOSE $PORT
+ENTRYPOINT ["./main.sh"]
