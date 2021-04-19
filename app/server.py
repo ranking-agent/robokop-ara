@@ -1,13 +1,13 @@
-"""Filter results (top-n)."""
-from fastapi import Body, Query
-from pydantic import conint
+"""Fill knowledge graph and bind."""
+from fastapi import Body
+import httpx
 from reasoner_pydantic import Query as ReasonerQuery, Response
 
 from .util import load_example
 from .trapi import TRAPI
 
 APP = TRAPI(
-    title="Filter results (top-n)",
+    title="Fill knowledge graph and bind",
     version="1.0.0",
     terms_of_service="N/A",
     translator_component="ARA",
@@ -36,12 +36,27 @@ APP = TRAPI(
             },
         },
 )
-async def filter_results_top_n(
-        max_results: conint(ge=0) = Query(..., example=1),
+async def fill_n_bind(
         request: ReasonerQuery = Body(..., example=load_example("query")),
 ) -> Response:
-    """Filter results (top-n)."""
+    """Fill knowledge graph and bind."""
     message = request.message
-    if message.results is not None:
-        message.results = message.results[:max_results]
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            "https://automat.renci.org/robokopkg/query",
+            json=request.dict(),
+        )
+        response = await client.post(
+            "https://aragorn-ranker.renci.org/omnicorp_overlay",
+            json=response.json(),
+        )
+        response = await client.post(
+            "https://aragorn-ranker.renci.org/weight_correctness",
+            json=response.json(),
+        )
+        response = await client.post(
+            "https://aragorn-ranker.renci.org/score",
+            json=response.json(),
+        )
+        message = response.json()["message"]
     return Response(message=message)
