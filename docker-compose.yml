@@ -1,8 +1,8 @@
 version: '3.0'
 
 services:
-  filter_results_top_n:
-    image: filter_results_top_n
+  robokop-ara:
+    image: robokop-ara
     build:
       context: .
     environment:
