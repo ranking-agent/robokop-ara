@@ -1,4 +1,5 @@
-# Filter results (top-n) TRAPI operation reference implementation
+# ROBOKOP-ARA
+## TRAPI operation reference implementation
 
 ```bash
 docker-compose up --build
