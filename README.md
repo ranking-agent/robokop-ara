@@ -1,5 +1,4 @@
 # ROBOKOP-ARA
-## TRAPI operation reference implementation
 
 ```bash
 docker-compose up --build
