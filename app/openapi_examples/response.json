@@ -1,71 +1,691 @@
 {
     "message": {
-        "query_graph": {
-            "nodes": {
-                "type-2 diabetes": {
-                    "id": "MONDO:0005148"
-                },
-                "drug": {
-                    "category": "biolink:ChemicalSubstance"
-                }
-            },
-            "edges": {
-                "treats": {
-                    "subject": "drug",
-                    "predicate": "biolink:treats",
-                    "object": "type-2 diabetes"
-                }
-            }
+      "query_graph": {
+        "nodes": {
+          "n0": {
+            "id": "MONDO:0005148",
+            "category": "biolink:Disease",
+            "is_set": false
+          },
+          "n1": {
+            "category": "biolink:PhenotypicFeature",
+            "is_set": false
+          }
         },
-        "knowledge_graph": {
-            "nodes": {
-                "MONDO:0005148": {
-                    "name": "type-2 diabetes"
-                },
-                "CHEBI:6801": {
-                    "name": "metformin",
-                    "category": "biolink:ChemicalSubstance"
-                },
-                "CHEBI:5441": {
-                    "name": "glyburide",
-                    "category": "biolink:ChemicalSubstance"
-                }
-            },
-            "edges": {
-                "df87ff82": {
-                    "subject": "CHEBI:6801",
-                    "predicate": "biolink:treats",
-                    "object": "MONDO:0005148"
-                },
-                "5133c100": {
-                    "subject": "CHEBI:5441",
-                    "predicate": "biolink:treats",
-                    "object": "MONDO:0005148"
-                }
-            }
+        "edges": {
+          "e01": {
+            "subject": "n0",
+            "object": "n1",
+            "predicate": "biolink:has_phenotype"
+          }
+        }
+      },
+      "knowledge_graph": {
+        "nodes": {
+          "HP:0004324": {
+            "category": [
+              "biolink:NamedThing",
+              "biolink:BiologicalEntity",
+              "biolink:DiseaseOrPhenotypicFeature",
+              "biolink:PhenotypicFeature"
+            ],
+            "name": "Increased body weight",
+            "attributes": [
+              {
+                "type": "NA",
+                "value": [],
+                "name": "synonyms"
+              },
+              {
+                "type": "NA",
+                "value": "Increased body weight",
+                "name": "name"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "NCIT:C62754",
+                  "MESH:D015430",
+                  "SNOMEDCT:8943002",
+                  "MEDDRA:10047899",
+                  "UMLS:C1112279",
+                  "SNOMEDCT:262286000",
+                  "HP:0004324",
+                  "UMLS:C0043094",
+                  "SNOMEDCT:161831008"
+                ],
+                "name": "equivalent_identifiers"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 36991,
+                "name": "omnicorp_article_count"
+              }
+            ]
+          },
+          "MONDO:0005148": {
+            "category": [
+              "biolink:NamedThing",
+              "biolink:BiologicalEntity",
+              "biolink:Disease",
+              "biolink:DiseaseOrPhenotypicFeature"
+            ],
+            "name": "type 2 diabetes mellitus",
+            "attributes": [
+              {
+                "type": "NA",
+                "value": true,
+                "name": "nutritional_or_metabolic_disease"
+              },
+              {
+                "type": "NA",
+                "value": [],
+                "name": "synonyms"
+              },
+              {
+                "type": "NA",
+                "value": "type 2 diabetes mellitus",
+                "name": "name"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "UMLS:C0011860",
+                  "NCIT:C26747",
+                  "HP:0005978",
+                  "UMLS:CN244395",
+                  "DOID:9352",
+                  "SNOMEDCT:44054006",
+                  "MESH:D003924",
+                  "EFO:0001360",
+                  "MONDO:0005148"
+                ],
+                "name": "equivalent_identifiers"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 181018,
+                "name": "omnicorp_article_count"
+              }
+            ]
+          },
+          "HP:0012592": {
+            "category": [
+              "biolink:NamedThing",
+              "biolink:BiologicalEntity",
+              "biolink:DiseaseOrPhenotypicFeature",
+              "biolink:PhenotypicFeature"
+            ],
+            "name": "Albuminuria",
+            "attributes": [
+              {
+                "type": "NA",
+                "value": [],
+                "name": "synonyms"
+              },
+              {
+                "type": "NA",
+                "value": "Albuminuria",
+                "name": "name"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "HP:0012592",
+                  "UMLS:C0001925",
+                  "MEDDRA:10001580",
+                  "MESH:D000419",
+                  "SNOMEDCT:274769005"
+                ],
+                "name": "equivalent_identifiers"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 19783,
+                "name": "omnicorp_article_count"
+              }
+            ]
+          },
+          "HP:0025502": {
+            "category": [
+              "biolink:NamedThing",
+              "biolink:BiologicalEntity",
+              "biolink:DiseaseOrPhenotypicFeature",
+              "biolink:PhenotypicFeature"
+            ],
+            "name": "Overweight",
+            "attributes": [
+              {
+                "type": "NA",
+                "value": [],
+                "name": "synonyms"
+              },
+              {
+                "type": "NA",
+                "value": "Overweight",
+                "name": "name"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "NCIT:C94250",
+                  "UMLS:C0497406",
+                  "SNOMEDCT:238131007",
+                  "MESH:D050177",
+                  "UMLS:C0948775",
+                  "HP:0025502",
+                  "MEDDRA:10033307"
+                ],
+                "name": "equivalent_identifiers"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 61354,
+                "name": "omnicorp_article_count"
+              }
+            ]
+          },
+          "HP:0001956": {
+            "category": [
+              "biolink:NamedThing",
+              "biolink:BiologicalEntity",
+              "biolink:DiseaseOrPhenotypicFeature",
+              "biolink:PhenotypicFeature"
+            ],
+            "name": "Truncal obesity",
+            "attributes": [
+              {
+                "type": "NA",
+                "value": [],
+                "name": "synonyms"
+              },
+              {
+                "type": "NA",
+                "value": "Truncal obesity",
+                "name": "name"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "HP:0001956",
+                  "HP:0012743",
+                  "SNOMEDCT:248311001",
+                  "UMLS:C2936179",
+                  "UMLS:C4551560",
+                  "MEDDRA:10065941",
+                  "MESH:D056128",
+                  "UMLS:C0311277"
+                ],
+                "name": "equivalent_identifiers"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 12341,
+                "name": "omnicorp_article_count"
+              }
+            ]
+          }
         },
-        "results": [
-            {
-                "node_bindings": {
-                    "type-2 diabetes": [
-                        {
-                            "id": "MONDO:0005148"
-                        }
-                    ],
-                    "drug": [
-                        {
-                            "id": "CHEBI:6801"
-                        }
-                    ]
-                },
-                "edge_bindings": {
-                    "treats": [
-                        {
-                            "id": "df87ff82"
-                        }
-                    ]
-                }
-            }
-        ]
+        "edges": {
+          "a3e722a7aca0d7e16df88b15063b5dfb": {
+            "subject": "MONDO:0005148",
+            "object": "HP:0025502",
+            "predicate": "biolink:has_phenotype",
+            "attributes": [
+              {
+                "type": "NA",
+                "value": [
+                  "PRESENTS_DpS"
+                ],
+                "name": "relation_label"
+              },
+              {
+                "type": "NA",
+                "value": "biolink:has_phenotype",
+                "name": "predicate_id"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio.disease_to_phenotype"
+                ],
+                "name": "edge_source"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  1585020874.9647624
+                ],
+                "name": "ctime"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio"
+                ],
+                "name": "source_database"
+              },
+              {
+                "type": "EDAM:data_0971",
+                "value": [],
+                "name": "publications"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio:PRESENTS_DpS"
+                ],
+                "name": "relation"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 1,
+                "name": "weight"
+              }
+            ]
+          },
+          "d7bc158c5fe623e32dc24cf4154e8b26": {
+            "subject": "MONDO:0005148",
+            "object": "HP:0012592",
+            "predicate": "biolink:has_phenotype",
+            "attributes": [
+              {
+                "type": "NA",
+                "value": [
+                  "PRESENTS_DpS"
+                ],
+                "name": "relation_label"
+              },
+              {
+                "type": "NA",
+                "value": "biolink:has_phenotype",
+                "name": "predicate_id"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio.disease_to_phenotype"
+                ],
+                "name": "edge_source"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  1585020874.9646962
+                ],
+                "name": "ctime"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio"
+                ],
+                "name": "source_database"
+              },
+              {
+                "type": "EDAM:data_0971",
+                "value": [],
+                "name": "publications"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio:PRESENTS_DpS"
+                ],
+                "name": "relation"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 1,
+                "name": "weight"
+              }
+            ]
+          },
+          "b1b5915c501922fe14604491a9badf16": {
+            "subject": "MONDO:0005148",
+            "object": "HP:0001956",
+            "predicate": "biolink:has_phenotype",
+            "attributes": [
+              {
+                "type": "NA",
+                "value": [
+                  "PRESENTS_DpS"
+                ],
+                "name": "relation_label"
+              },
+              {
+                "type": "NA",
+                "value": "biolink:has_phenotype",
+                "name": "predicate_id"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio.disease_to_phenotype"
+                ],
+                "name": "edge_source"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  1585020874.9646719
+                ],
+                "name": "ctime"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio"
+                ],
+                "name": "source_database"
+              },
+              {
+                "type": "EDAM:data_0971",
+                "value": [],
+                "name": "publications"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio:PRESENTS_DpS"
+                ],
+                "name": "relation"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 1,
+                "name": "weight"
+              }
+            ]
+          },
+          "7c7375a8883b4a10c069c11e4bafe5f1": {
+            "subject": "MONDO:0005148",
+            "object": "HP:0004324",
+            "predicate": "biolink:has_phenotype",
+            "attributes": [
+              {
+                "type": "NA",
+                "value": [
+                  "PRESENTS_DpS"
+                ],
+                "name": "relation_label"
+              },
+              {
+                "type": "NA",
+                "value": "biolink:has_phenotype",
+                "name": "predicate_id"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio.disease_to_phenotype"
+                ],
+                "name": "edge_source"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  1585020874.9647841
+                ],
+                "name": "ctime"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio"
+                ],
+                "name": "source_database"
+              },
+              {
+                "type": "EDAM:data_0971",
+                "value": [],
+                "name": "publications"
+              },
+              {
+                "type": "NA",
+                "value": [
+                  "hetio:PRESENTS_DpS"
+                ],
+                "name": "relation"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 1,
+                "name": "weight"
+              }
+            ]
+          },
+          "96490974-c008-46fa-83fe-3861285d028c": {
+            "subject": "HP:0012592",
+            "object": "MONDO:0005148",
+            "predicate": "biolink:literature_co_occurrence",
+            "attributes": [
+              {
+                "type": "num_publications",
+                "value": 5025
+              },
+              {
+                "type": "publications",
+                "value": []
+              },
+              {
+                "type": "source_database",
+                "value": "omnicorp"
+              },
+              {
+                "type": "edge_source",
+                "value": "omnicorp.term_to_term"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 1,
+                "name": "weight"
+              }
+            ]
+          },
+          "169941e7-1a20-439e-a062-90c04b47f246": {
+            "subject": "HP:0001956",
+            "object": "MONDO:0005148",
+            "predicate": "biolink:literature_co_occurrence",
+            "attributes": [
+              {
+                "type": "num_publications",
+                "value": 2244
+              },
+              {
+                "type": "publications",
+                "value": []
+              },
+              {
+                "type": "source_database",
+                "value": "omnicorp"
+              },
+              {
+                "type": "edge_source",
+                "value": "omnicorp.term_to_term"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 1,
+                "name": "weight"
+              }
+            ]
+          },
+          "ebd1a332-29f0-46a5-987e-1b1059b2dc4b": {
+            "subject": "HP:0025502",
+            "object": "MONDO:0005148",
+            "predicate": "biolink:literature_co_occurrence",
+            "attributes": [
+              {
+                "type": "num_publications",
+                "value": 5219
+              },
+              {
+                "type": "publications",
+                "value": []
+              },
+              {
+                "type": "source_database",
+                "value": "omnicorp"
+              },
+              {
+                "type": "edge_source",
+                "value": "omnicorp.term_to_term"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 1,
+                "name": "weight"
+              }
+            ]
+          },
+          "99a9b6ac-1e6e-4194-b789-530a1cfb6b4a": {
+            "subject": "HP:0004324",
+            "object": "MONDO:0005148",
+            "predicate": "biolink:literature_co_occurrence",
+            "attributes": [
+              {
+                "type": "num_publications",
+                "value": 1945
+              },
+              {
+                "type": "publications",
+                "value": []
+              },
+              {
+                "type": "source_database",
+                "value": "omnicorp"
+              },
+              {
+                "type": "edge_source",
+                "value": "omnicorp.term_to_term"
+              },
+              {
+                "type": "EDAM:data_0006",
+                "value": 1,
+                "name": "weight"
+              }
+            ]
+          }
+        }
+      },
+      "results": [
+        {
+          "node_bindings": {
+            "n0": [
+              {
+                "id": "MONDO:0005148"
+              }
+            ],
+            "n1": [
+              {
+                "id": "HP:0012592"
+              }
+            ]
+          },
+          "edge_bindings": {
+            "e01": [
+              {
+                "id": "d7bc158c5fe623e32dc24cf4154e8b26",
+                "weight": 0.2679491924311228
+              }
+            ],
+            "s0": [
+              {
+                "id": "96490974-c008-46fa-83fe-3861285d028c",
+                "weight": 0.2679491924311228
+              }
+            ]
+          },
+          "score": 0.5358983848622456
+        },
+        {
+          "node_bindings": {
+            "n0": [
+              {
+                "id": "MONDO:0005148"
+              }
+            ],
+            "n1": [
+              {
+                "id": "HP:0001956"
+              }
+            ]
+          },
+          "edge_bindings": {
+            "e01": [
+              {
+                "id": "b1b5915c501922fe14604491a9badf16",
+                "weight": 0.2679491924311228
+              }
+            ],
+            "s1": [
+              {
+                "id": "169941e7-1a20-439e-a062-90c04b47f246",
+                "weight": 0.2679491924311228
+              }
+            ]
+          },
+          "score": 0.5358983848622456
+        },
+        {
+          "node_bindings": {
+            "n0": [
+              {
+                "id": "MONDO:0005148"
+              }
+            ],
+            "n1": [
+              {
+                "id": "HP:0004324"
+              }
+            ]
+          },
+          "edge_bindings": {
+            "e01": [
+              {
+                "id": "7c7375a8883b4a10c069c11e4bafe5f1",
+                "weight": 0.2679491924311228
+              }
+            ],
+            "s2": [
+              {
+                "id": "99a9b6ac-1e6e-4194-b789-530a1cfb6b4a",
+                "weight": 0.2679491924311228
+              }
+            ]
+          },
+          "score": 0.5358983848622456
+        },
+        {
+          "node_bindings": {
+            "n0": [
+              {
+                "id": "MONDO:0005148"
+              }
+            ],
+            "n1": [
+              {
+                "id": "HP:0025502"
+              }
+            ]
+          },
+          "edge_bindings": {
+            "e01": [
+              {
+                "id": "a3e722a7aca0d7e16df88b15063b5dfb",
+                "weight": 0.2679491924311228
+              }
+            ],
+            "s3": [
+              {
+                "id": "ebd1a332-29f0-46a5-987e-1b1059b2dc4b",
+                "weight": 0.2679491924311228
+              }
+            ]
+          },
+          "score": 0.5358983848622456
+        }
+      ]
     }
-}
+  }
