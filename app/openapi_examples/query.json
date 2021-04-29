@@ -1,92 +1,22 @@
 {
     "message": {
-        "query_graph": {
-            "nodes": {
-                "type-2 diabetes": {
-                    "id": "MONDO:0005148"
-                },
-                "drug": {
-                    "category": "biolink:ChemicalSubstance"
-                }
-            },
-            "edges": {
-                "treats": {
-                    "subject": "drug",
-                    "predicate": "biolink:treats",
-                    "object": "type-2 diabetes"
-                }
-            }
+      "query_graph": {
+        "nodes": {
+          "n0": {
+            "id": "MONDO:0005148",
+            "category": "biolink:Disease"
+          },
+          "n1": {
+            "category": "biolink:PhenotypicFeature"
+          }
         },
-        "knowledge_graph": {
-            "nodes": {
-                "MONDO:0005148": {
-                    "name": "type-2 diabetes"
-                },
-                "CHEBI:6801": {
-                    "name": "metformin",
-                    "category": "biolink:ChemicalSubstance"
-                },
-                "CHEBI:5441": {
-                    "name": "glyburide",
-                    "category": "biolink:ChemicalSubstance"
-                }
-            },
-            "edges": {
-                "df87ff82": {
-                    "subject": "CHEBI:6801",
-                    "predicate": "biolink:treats",
-                    "object": "MONDO:0005148"
-                },
-                "5133c100": {
-                    "subject": "CHEBI:5441",
-                    "predicate": "biolink:treats",
-                    "object": "MONDO:0005148"
-                }
-            }
-        },
-        "results": [
-            {
-                "node_bindings": {
-                    "type-2 diabetes": [
-                        {
-                            "id": "MONDO:0005148"
-                        }
-                    ],
-                    "drug": [
-                        {
-                            "id": "CHEBI:6801"
-                        }
-                    ]
-                },
-                "edge_bindings": {
-                    "treats": [
-                        {
-                            "id": "df87ff82"
-                        }
-                    ]
-                }
-            },
-            {
-                "node_bindings": {
-                    "type-2 diabetes": [
-                        {
-                            "id": "MONDO:0005148"
-                        }
-                    ],
-                    "drug": [
-                        {
-                            "id": "CHEBI:5441"
-                        }
-                    ]
-                },
-                "edge_bindings": {
-                    "treats": [
-                        {
-                            "id": "5133c100"
-                        }
-                    ]
-                }
-            }
-        ]
+        "edges": {
+          "e01": {
+            "subject": "n0",
+            "object": "n1",
+            "predicate": "biolink:has_phenotype"
+          }
+        }
+      }
     }
-}
+  }
