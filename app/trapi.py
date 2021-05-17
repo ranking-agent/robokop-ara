@@ -26,9 +26,8 @@ class TRAPI(FastAPI):
         self.terms_of_service = terms_of_service
         self.translator_component = translator_component
         self.translator_teams = translator_teams
-        self.openapi = self._openapi
 
-    def _openapi(self) -> Dict[str, Any]:
+    def openapi(self) -> Dict[str, Any]:
         """Build custom OpenAPI schema."""
         if self.openapi_schema:
             return self.openapi_schema
