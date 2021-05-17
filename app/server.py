@@ -41,7 +41,6 @@ async def lookup(
         request: ReasonerQuery = Body(..., example=load_example("query")),
 ) -> Response:
     """Look up answers to the question."""
-    message = request.message
     async with httpx.AsyncClient() as client:
         response = await client.post(
             "https://automat.renci.org/robokopkg/query",
@@ -59,5 +58,4 @@ async def lookup(
             "https://aragorn-ranker.renci.org/score",
             json=response.json(),
         )
-        message = response.json()["message"]
-    return Response(message=message)
+    return Response(**response.json())
