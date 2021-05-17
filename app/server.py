@@ -7,7 +7,7 @@ from .util import load_example
 from .trapi import TRAPI
 
 APP = TRAPI(
-    title="Fill knowledge graph and bind",
+    title="ROBOKOP ARA",
     version="1.0.0",
     terms_of_service="N/A",
     translator_component="ARA",
@@ -18,6 +18,7 @@ APP = TRAPI(
         "x-id": "patrickkwang",
         "x-role": "responsible developer",
     },
+    openapi_tags=[{"name": "robokop"}]
 )
 
 
@@ -36,10 +37,10 @@ APP = TRAPI(
             },
         },
 )
-async def fill_n_bind(
+async def lookup(
         request: ReasonerQuery = Body(..., example=load_example("query")),
 ) -> Response:
-    """Fill knowledge graph and bind."""
+    """Look up answers to the question."""
     message = request.message
     async with httpx.AsyncClient() as client:
         response = await client.post(
