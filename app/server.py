@@ -43,19 +43,19 @@ async def lookup(
     """Look up answers to the question."""
     async with httpx.AsyncClient() as client:
         response = await client.post(
-            "https://automat.renci.org/robokopkg/query",
+            "https://automat.renci.org/robokopkg/1.1/query",
             json=request.dict(),
         )
         response = await client.post(
-            "https://aragorn-ranker.renci.org/omnicorp_overlay",
+            "https://aragorn-ranker.renci.org/1.1/omnicorp_overlay",
             json=response.json(),
         )
         response = await client.post(
-            "https://aragorn-ranker.renci.org/weight_correctness",
+            "https://aragorn-ranker.renci.org/1.1/weight_correctness",
             json=response.json(),
         )
         response = await client.post(
-            "https://aragorn-ranker.renci.org/score",
+            "https://aragorn-ranker.renci.org/1.1/score",
             json=response.json(),
         )
     return Response(**response.json())
