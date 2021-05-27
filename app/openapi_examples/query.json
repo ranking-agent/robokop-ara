@@ -1,22 +1,36 @@
 {
-    "message": {
-      "query_graph": {
-        "nodes": {
-          "n0": {
-            "id": "MONDO:0005148",
-            "category": "biolink:Disease"
-          },
-          "n1": {
-            "category": "biolink:PhenotypicFeature"
-          }
+  "message": {
+    "query_graph": {
+      "nodes": {
+        "n0": {
+          "categories": [
+            "biolink:Disease"
+          ],
+          "ids": [
+            "MONDO:0005148"
+          ]
         },
-        "edges": {
-          "e01": {
-            "subject": "n0",
-            "object": "n1",
-            "predicate": "biolink:has_phenotype"
-          }
+        "n1": {
+          "categories": [
+            "biolink:PhenotypicFeature"
+          ],
+          "ids": null
+        }
+      },
+      "edges": {
+        "e01": {
+          "subject": "n0",
+          "object": "n1",
+          "predicates": [
+            "biolink:has_phenotype"
+          ]
         }
       }
-    }
+    },
+    "knowledge_graph": {
+      "nodes": {},
+      "edges": {}
+    },
+    "results": []
   }
+}
