@@ -9,7 +9,7 @@ class TRAPI(FastAPI):
     """Translator Reasoner API - wrapper for FastAPI."""
     required_tags = [
         {"name": "translator"},
-        {"name": "reasoner"},
+        {"name": "trapi"},
     ]
 
     def __init__(
@@ -19,6 +19,7 @@ class TRAPI(FastAPI):
         terms_of_service: Optional[str] = None,
         translator_component: Optional[str] = None,
         translator_teams: Optional[List[str]] = None,
+        trapi_operations: Optional[List[str]] = None,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
@@ -26,6 +27,7 @@ class TRAPI(FastAPI):
         self.terms_of_service = terms_of_service
         self.translator_component = translator_component
         self.translator_teams = translator_teams
+        self.trapi_operations = trapi_operations
 
     def openapi(self) -> Dict[str, Any]:
         """Build custom OpenAPI schema."""
@@ -49,7 +51,20 @@ class TRAPI(FastAPI):
         openapi_schema["info"]["x-translator"] = {
             "component": self.translator_component,
             "team": self.translator_teams,
+            "externalDocs": {
+                "description": "The values for component and team are restricted according to this external JSON schema. See schema and examples at url",
+                "url": "https://github.com/NCATSTranslator/translator_extensions/blob/production/x-translator/",
+            },
         }
+        openapi_schema["info"]["x-trapi"] = {
+            "version": "1.1.0",
+            "externalDocs": {
+                "description": "The values for version are restricted according to the regex in this external JSON schema. See schema and examples at url",
+                "url": "https://github.com/NCATSTranslator/translator_extensions/blob/production/x-trapi/",
+            },
+        }
+        if self.trapi_operations:
+            openapi_schema["info"]["x-trapi"]["operations"] = self.trapi_operations
         openapi_schema["info"]["contact"] = self.contact
         openapi_schema["info"]["termsOfService"] = self.terms_of_service
 
