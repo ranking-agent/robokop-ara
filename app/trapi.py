@@ -7,6 +7,7 @@ from fastapi.openapi.utils import get_openapi
 
 class TRAPI(FastAPI):
     """Translator Reasoner API - wrapper for FastAPI."""
+
     required_tags = [
         {"name": "translator"},
         {"name": "trapi"},
@@ -64,7 +65,9 @@ class TRAPI(FastAPI):
             },
         }
         if self.trapi_operations:
-            openapi_schema["info"]["x-trapi"]["operations"] = self.trapi_operations
+            openapi_schema["info"]["x-trapi"][
+                "operations"
+            ] = self.trapi_operations
         openapi_schema["info"]["contact"] = self.contact
         openapi_schema["info"]["termsOfService"] = self.terms_of_service
 

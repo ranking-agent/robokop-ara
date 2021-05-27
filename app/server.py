@@ -8,7 +8,7 @@ from .trapi import TRAPI
 
 APP = TRAPI(
     title="ROBOKOP ARA",
-    version="1.0.0",
+    version="2.0.0",
     terms_of_service="N/A",
     translator_component="ARA",
     translator_teams=["SRI"],
