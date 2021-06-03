@@ -18,7 +18,8 @@ APP = TRAPI(
         "x-id": "patrickkwang",
         "x-role": "responsible developer",
     },
-    openapi_tags=[{"name": "robokop"}]
+    openapi_tags=[{"name": "robokop"}],
+    trapi_operations=["lookup"],
 )
 
 
