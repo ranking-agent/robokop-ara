@@ -8,7 +8,7 @@ from asgiar import ASGIAR
 from fastapi import FastAPI
 import httpx
 import pytest
-from reasoner_pydantic import Query
+from starlette.requests import Request
 
 from app.server import APP
 
@@ -35,8 +35,8 @@ async def function_overlay(host: str, fcn: Callable):
             "/{path:path}",
             methods=["GET", "POST", "PUT", "DELETE"],
         )
-        async def all_paths(path: str, request: Query):
-            return fcn(request.dict())
+        async def all_paths(path: str, request: Request):
+            return fcn(await request.json())
 
         await stack.enter_async_context(
             ASGIAR(app, host=host)
