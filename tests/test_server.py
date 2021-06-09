@@ -46,7 +46,19 @@ async def function_overlay(host: str, fcn: Callable):
 
 with_function_overlay = partial(with_context, function_overlay)
 
-client = httpx.AsyncClient(app=APP, base_url="http://test")
+
+@pytest.fixture
+async def client():
+    """Create and teardown async httpx client."""
+    transport = httpx.ASGITransport(
+        app=APP,
+        raise_app_exceptions=False,
+    )
+    async with httpx.AsyncClient(
+        transport=transport,
+        base_url="http://test",
+    ) as client:
+        yield client
 
 
 @pytest.mark.asyncio
@@ -62,7 +74,7 @@ client = httpx.AsyncClient(app=APP, base_url="http://test")
         "ranker": request.get("ranker", []) + [datetime.now().isoformat()]
     },
 )
-async def test_server():
+async def test_server(client):
     """Test the server."""
     payload = {"message": {}}
     response = await client.post("/query", json=payload)
@@ -77,7 +89,7 @@ async def test_server():
 
 
 @pytest.mark.asyncio
-async def test_endpoint():
+async def test_endpoint(client):
     """Test getting OpenAPI."""
     response = await client.get(
         "/openapi.json",
