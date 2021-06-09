@@ -45,7 +45,10 @@ async def lookup(
     async with httpx.AsyncClient() as client:
         response = await client.post(
             "https://automat.renci.org/robokopkg/1.1/query",
-            json=request.dict(),
+            json=request.dict(
+                by_alias=True,
+                exclude_unset=True,
+            ),
         )
         response = await client.post(
             "https://aragorn-ranker.renci.org/1.1/omnicorp_overlay",
