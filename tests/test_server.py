@@ -5,9 +5,11 @@ from functools import partial, wraps
 from typing import Callable
 
 from asgiar import ASGIAR
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import httpx
+from jsonschema.exceptions import ValidationError
 import pytest
+from reasoner_validator import validate
 from starlette.requests import Request
 
 from app.server import APP
@@ -100,3 +102,37 @@ async def test_endpoint(client):
         "/openapi.json",
     )
     response.raise_for_status()
+
+
+def validate_trapi(request: dict):
+    """Return request verbatim if it is a valid TRAPI query."""
+    try:
+        validate(request, "Query", "1.1.0")
+    except ValidationError as err:
+        raise HTTPException(422, str(err))
+    return request
+
+
+@pytest.mark.asyncio
+@with_function_overlay(
+    "automat.renci.org",
+    validate_trapi,
+)
+@with_function_overlay(
+    "aragorn-ranker.renci.org",
+    validate_trapi,
+)
+async def test_request(client):
+    """Test the request generated internally."""
+    payload = {
+        "message": {
+            "knowledge_graph": {
+                "nodes": {
+                    "MONDO:xxx": {"categories": ["biolink:Disease"]}
+                },
+                "edges": {},
+            }
+        }
+    }
+    response = await client.post("/query", json=payload)
+    assert response.status_code == 200
