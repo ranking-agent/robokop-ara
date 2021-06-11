@@ -50,6 +50,7 @@ async def lookup(
                 by_alias=True,
                 exclude_unset=True,
             ),
+            timeout=None,
         )
         if response.status_code != 200:
             raise HTTPException(500, f"Failed doing lookup: {response.text}")
@@ -57,6 +58,7 @@ async def lookup(
         response = await client.post(
             "https://aragorn-ranker.renci.org/1.1/omnicorp_overlay",
             json=response.json(),
+            timeout=None,
         )
         if response.status_code != 200:
             raise HTTPException(500, f"Failed doing overlay: {response.text}")
@@ -64,6 +66,7 @@ async def lookup(
         response = await client.post(
             "https://aragorn-ranker.renci.org/1.1/weight_correctness",
             json=response.json(),
+            timeout=None,
         )
         if response.status_code != 200:
             raise HTTPException(500, f"Failed doing weighting: {response.text}")
@@ -71,6 +74,7 @@ async def lookup(
         response = await client.post(
             "https://aragorn-ranker.renci.org/1.1/score",
             json=response.json(),
+            timeout=None,
         )
         if response.status_code != 200:
             raise HTTPException(500, f"Failed doing scoring: {response.text}")
