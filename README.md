@@ -1,5 +1,14 @@
 # ROBOKOP-ARA
 
+to deploy:
+
+```bash
+docker run --name robokop-ara -e PORT=7092 -p 7092:7092 -d \
+docker.pkg.github.com/ranking-agent/robokop-ara/robokop-ara:latest
+```
+
+or, from the source:
+
 ```bash
 docker-compose up --build
 ```
