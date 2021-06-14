@@ -1,8 +1,12 @@
 """Fill knowledge graph and bind."""
+import logging
+
 from fastapi import Body
 from fastapi.exceptions import HTTPException
+from fastapi.responses import JSONResponse
 import httpx
 from reasoner_pydantic import Query as ReasonerQuery, Response
+from starlette.requests import Request
 
 from .util import load_example
 from .trapi import TRAPI
@@ -22,6 +26,18 @@ APP = TRAPI(
     openapi_tags=[{"name": "robokop"}],
     trapi_operations=["lookup"],
 )
+
+
+LOGGER = logging.getLogger(__name__)
+
+
+@APP.exception_handler(Exception)
+async def exception_handler(request: Request, exc: Exception):
+    LOGGER.exception(exc)
+    return JSONResponse(
+        status_code=500,
+        content={"message": str(exc)},
+    )
 
 
 @APP.post(
