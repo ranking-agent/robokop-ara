@@ -2,6 +2,7 @@
 from contextlib import asynccontextmanager, AsyncExitStack
 from datetime import datetime
 from functools import partial, wraps
+from json.decoder import JSONDecodeError
 from typing import Callable
 
 from asgiar import ASGIAR
@@ -27,7 +28,7 @@ def with_context(context, *args_, **kwargs_):
 
 
 @asynccontextmanager
-async def function_overlay(host: str, fcn: Callable):
+async def function_overlay(url: str, fcn: Callable):
     """Apply an ASGIAR overlay that runs `fcn` for all routes."""
     async with AsyncExitStack() as stack:
         app = FastAPI()
@@ -38,15 +39,57 @@ async def function_overlay(host: str, fcn: Callable):
             methods=["GET", "POST", "PUT", "DELETE"],
         )
         async def all_paths(path: str, request: Request):
-            return fcn(await request.json())
+            try:
+                return fcn(await request.json())
+            except JSONDecodeError:
+                return fcn()
 
         await stack.enter_async_context(
-            ASGIAR(app, host=host)
+            ASGIAR(app, url=url)
         )
         yield
 
 
 with_function_overlay = partial(with_context, function_overlay)
+
+
+def validate_trapi(request_json: dict):
+    """Return request verbatim if it is a valid TRAPI query."""
+    try:
+        validate(request_json, "Query", "1.1.0")
+    except ValidationError as err:
+        raise HTTPException(422, str(err))
+    return request_json
+
+
+def with_subservice_overlay(
+    nodenorm=validate_trapi,
+    meta_kg=lambda: {"nodes": {}},
+    lookup=validate_trapi,
+    ranker=validate_trapi,
+):
+    """Overlay nodenormalization, automat, and aragorn-ranker."""
+    def wrap(fcn):
+        return with_function_overlay(
+            "https://nodenormalization-sri.renci.org/*",
+            nodenorm,
+        )(
+            with_function_overlay(
+                "https://automat.renci.org/robokopkg/1.1/meta_knowledge_graph",
+                meta_kg,
+            )(
+                with_function_overlay(
+                    "https://automat.renci.org/robokopkg/1.1/query",
+                    lookup,
+                )(
+                    with_function_overlay(
+                        "https://aragorn-ranker.renci.org/*",
+                        ranker,
+                    )(fcn)
+                )
+            )
+        )
+    return wrap
 
 
 @pytest.fixture
@@ -64,15 +107,11 @@ async def client():
 
 
 @pytest.mark.asyncio
-@with_function_overlay(
-    "automat.renci.org",
-    lambda request: request | {
+@with_subservice_overlay(
+    lookup=lambda request: request | {
         "automat": request.get("automat", []) + [datetime.now().isoformat()]
     },
-)
-@with_function_overlay(
-    "aragorn-ranker.renci.org",
-    lambda request: request | {
+    ranker=lambda request: request | {
         "ranker": request.get("ranker", []) + [datetime.now().isoformat()]
     },
 )
@@ -104,23 +143,9 @@ async def test_endpoint(client):
     response.raise_for_status()
 
 
-def validate_trapi(request: dict):
-    """Return request verbatim if it is a valid TRAPI query."""
-    try:
-        validate(request, "Query", "1.1.0")
-    except ValidationError as err:
-        raise HTTPException(422, str(err))
-    return request
-
-
 @pytest.mark.asyncio
-@with_function_overlay(
-    "automat.renci.org",
-    validate_trapi,
-)
-@with_function_overlay(
-    "aragorn-ranker.renci.org",
-    validate_trapi,
+@with_subservice_overlay(
+    meta_kg=lambda: {"nodes": {"biolink:Disease": {"id_prefixes": ["MONDO"]}}},
 )
 async def test_request(client):
     """Test the request generated internally."""
