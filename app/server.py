@@ -15,7 +15,7 @@ from .trapi import TRAPI
 BMT = Toolkit(schema="https://raw.githubusercontent.com/biolink/biolink-model/1.8.2/biolink-model.yaml")
 APP = TRAPI(
     title="ROBOKOP ARA",
-    version="2.1.0",
+    version="2.1.1",
     terms_of_service="N/A",
     translator_component="ARA",
     translator_teams=["SRI"],
