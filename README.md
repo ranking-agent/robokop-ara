@@ -3,7 +3,11 @@
 to deploy:
 
 ```bash
-docker run --name robokop-ara -e PORT=7092 -p 7092:7092 -d \
+docker run \
+--name robokop-ara \
+-e PORT=7092 -p 7092:7092 \
+-e OPENAPI_SERVER_URL=http://robokop.renci.org:7092 \
+-d \
 docker.pkg.github.com/ranking-agent/robokop-ara/robokop-ara:latest
 ```
 
