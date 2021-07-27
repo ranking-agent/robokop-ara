@@ -1,5 +1,6 @@
 """Fill knowledge graph and bind."""
 import logging
+import os
 
 from bmt import Toolkit
 from fastapi import Body
@@ -14,9 +15,10 @@ from .util import load_example
 from .trapi import TRAPI
 
 BMT = Toolkit(schema="https://raw.githubusercontent.com/biolink/biolink-model/1.8.2/biolink-model.yaml")
-APP = TRAPI(
+
+openapi_kwargs = dict(
     title="ROBOKOP ARA",
-    version="2.1.1",
+    version="2.2.0",
     terms_of_service="N/A",
     translator_component="ARA",
     translator_teams=["SRI"],
@@ -29,6 +31,12 @@ APP = TRAPI(
     openapi_tags=[{"name": "robokop"}],
     trapi_operations=["lookup"],
 )
+OPENAPI_SERVER_URL = os.getenv("OPENAPI_SERVER_URL")
+if OPENAPI_SERVER_URL:
+    openapi_kwargs["servers"] = [
+        {"url": OPENAPI_SERVER_URL}
+    ]
+APP = TRAPI(**openapi_kwargs)
 
 
 LOGGER = logging.getLogger(__name__)
