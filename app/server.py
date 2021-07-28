@@ -21,7 +21,7 @@ openapi_kwargs = dict(
     version="2.2.0",
     terms_of_service="N/A",
     translator_component="ARA",
-    translator_teams=["SRI"],
+    translator_teams=["Ranking Agent"],
     contact={
         "name": "Patrick Wang",
         "email": "patrick@covar.com",
