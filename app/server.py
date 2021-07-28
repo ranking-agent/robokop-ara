@@ -36,7 +36,10 @@ if OPENAPI_SERVER_URL:
     openapi_kwargs["servers"] = [
         {"url": OPENAPI_SERVER_URL}
     ]
-APP = TRAPI(**openapi_kwargs)
+APP = TRAPI(
+    **openapi_kwargs,
+    docs_url="/",
+)
 
 
 LOGGER = logging.getLogger(__name__)
