@@ -8,6 +8,7 @@ from fastapi.exceptions import HTTPException
 from fastapi.responses import JSONResponse
 import httpx
 from reasoner_pydantic import Query as ReasonerQuery, Response
+from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 
 from .identifiers import map_identifiers
@@ -18,7 +19,7 @@ BMT = Toolkit()
 
 openapi_kwargs = dict(
     title="ROBOKOP ARA",
-    version="2.4.1",
+    version="2.4.2",
     terms_of_service="N/A",
     translator_component="ARA",
     translator_teams=["Ranking Agent"],
@@ -42,6 +43,16 @@ APP = TRAPI(
     root_path_in_servers=False,
 )
 
+CORS_OPTIONS = dict(
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+APP.add_middleware(
+    CORSMiddleware,
+    **CORS_OPTIONS,
+)
 
 LOGGER = logging.getLogger(__name__)
 
