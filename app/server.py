@@ -14,7 +14,7 @@ from .identifiers import map_identifiers
 from .util import load_example
 from .trapi import TRAPI
 
-BMT = Toolkit(schema="https://raw.githubusercontent.com/biolink/biolink-model/1.8.2/biolink-model.yaml")
+BMT = Toolkit()
 
 openapi_kwargs = dict(
     title="ROBOKOP ARA",
