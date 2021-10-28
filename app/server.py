@@ -101,7 +101,7 @@ async def lookup(
         pass
     async with httpx.AsyncClient() as client:
         response = await client.post(
-            "https://automat.renci.org/robokopkg/1.1/query",
+            "https://automat.renci.org/robokopkg/1.2/query",
             json=trapi_query,
             timeout=None,
         )
@@ -109,7 +109,7 @@ async def lookup(
             raise HTTPException(500, f"Failed doing lookup: {response.text}")
 
         response = await client.post(
-            "https://aragorn-ranker.renci.org/1.1/omnicorp_overlay",
+            "https://aragorn-ranker.renci.org/1.2/omnicorp_overlay",
             json=response.json(),
             timeout=None,
         )
@@ -117,7 +117,7 @@ async def lookup(
             raise HTTPException(500, f"Failed doing overlay: {response.text}")
 
         response = await client.post(
-            "https://aragorn-ranker.renci.org/1.1/weight_correctness",
+            "https://aragorn-ranker.renci.org/1.2/weight_correctness",
             json=response.json(),
             timeout=None,
         )
@@ -125,7 +125,7 @@ async def lookup(
             raise HTTPException(500, f"Failed doing weighting: {response.text}")
 
         response = await client.post(
-            "https://aragorn-ranker.renci.org/1.1/score",
+            "https://aragorn-ranker.renci.org/1.2/score",
             json=response.json(),
             timeout=None,
         )
