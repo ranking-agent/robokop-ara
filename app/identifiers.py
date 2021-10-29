@@ -1,9 +1,10 @@
 """Utilities for handling identifiers."""
+from typing import List
 from fastapi.exceptions import HTTPException
 import httpx
 
 
-async def get_synonyms(curies: list[str]):
+async def get_synonyms(curies: List[str]):
     """Get synonyms for CURIE."""
     async with httpx.AsyncClient() as client:
         response = await client.post(
