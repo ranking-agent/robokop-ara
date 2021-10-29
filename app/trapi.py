@@ -49,6 +49,8 @@ class TRAPI(FastAPI):
             servers=self.servers,
         )
 
+        openapi_schema["servers"] = self.servers
+
         openapi_schema["info"]["x-translator"] = {
             "component": self.translator_component,
             "team": self.translator_teams,
