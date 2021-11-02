@@ -43,6 +43,10 @@ if OPENAPI_SERVER_URL:
             "x-location": OPENAPI_SERVER_LOCATION,
         },
     ]
+<<<<<<< HEAD
+=======
+
+>>>>>>> fix merge for x-location and x-maturity
 APP = TRAPI(
     **openapi_kwargs,
     docs_url="/",
