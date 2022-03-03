@@ -4,6 +4,8 @@ from typing import Any, Dict, List, Optional
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 
+from .config import settings
+
 
 class TRAPI(FastAPI):
     """Translator Reasoner API - wrapper for FastAPI."""
@@ -48,7 +50,14 @@ class TRAPI(FastAPI):
             tags=tags,
         )
 
-        openapi_schema["servers"] = self.servers
+        if settings.openapi_server_url:
+            openapi_schema["servers"] = [
+                {
+                    "url": settings.openapi_server_url,
+                    "x-maturity": settings.openapi_server_maturity,
+                    "x-location": settings.openapi_server_location,
+                },
+            ]
 
         openapi_schema["info"]["x-translator"] = {
             "component": self.translator_component,
@@ -67,9 +76,7 @@ class TRAPI(FastAPI):
             },
         }
         if self.trapi_operations:
-            openapi_schema["info"]["x-trapi"][
-                "operations"
-            ] = self.trapi_operations
+            openapi_schema["info"]["x-trapi"]["operations"] = self.trapi_operations
         openapi_schema["info"]["contact"] = self.contact
         openapi_schema["info"]["termsOfService"] = self.terms_of_service
 

@@ -6,7 +6,5 @@ services:
     image: robokop-ara
     build:
       context: .
-    environment:
-      - PORT
     ports:
-      - '${PORT}:${PORT}'
+      - '7092:7092'
