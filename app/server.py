@@ -19,7 +19,7 @@ BMT = Toolkit()
 
 openapi_kwargs = dict(
     title="ROBOKOP ARA",
-    version="2.6.2",
+    version="2.6.3",
     terms_of_service="N/A",
     translator_component="ARA",
     translator_teams=["Ranking Agent"],
