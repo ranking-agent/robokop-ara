@@ -3,12 +3,14 @@ from typing import List
 from fastapi.exceptions import HTTPException
 import httpx
 
+from .config import settings
+
 
 async def get_synonyms(curies: List[str]):
     """Get synonyms for CURIE."""
     async with httpx.AsyncClient() as client:
         response = await client.post(
-            "https://nodenormalization-sri.renci.org/1.2/get_normalized_nodes",
+            f"{settings.node_norm}/get_normalized_nodes",
             json={"curies": curies},
         )
         if response.status_code != 200:
@@ -30,7 +32,7 @@ async def get_preferred_prefixes():
     if PREFERRED_PREFIXES is None:
         async with httpx.AsyncClient() as client:
             response = await client.get(
-                "https://automat.renci.org/robokopkg/1.2/meta_knowledge_graph",
+                f"{settings.robokop_kg}/meta_knowledge_graph",
             )
             if response.status_code != 200:
                 raise HTTPException(500, f"Failed finding preferred prefixes: {response.text}")

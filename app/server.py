@@ -1,6 +1,5 @@
 """Fill knowledge graph and bind."""
 import logging
-import os
 
 from bmt import Toolkit
 from fastapi import Body
@@ -11,6 +10,7 @@ from reasoner_pydantic import Query as ReasonerQuery, Response
 from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 
+from .config import settings
 from .identifiers import map_identifiers
 from .util import load_example
 from .trapi import TRAPI
@@ -32,17 +32,7 @@ openapi_kwargs = dict(
     openapi_tags=[{"name": "robokop"}],
     trapi_operations=["lookup"],
 )
-OPENAPI_SERVER_URL = os.getenv("OPENAPI_SERVER_URL")
-OPENAPI_SERVER_MATURITY = os.getenv("OPENAPI_SERVER_MATURITY", "development")
-OPENAPI_SERVER_LOCATION = os.getenv("OPENAPI_SERVER_LOCATION", "RENCI")
-if OPENAPI_SERVER_URL:
-    openapi_kwargs["servers"] = [
-        {
-            "url": OPENAPI_SERVER_URL,
-            "x-maturity": OPENAPI_SERVER_MATURITY,
-            "x-location": OPENAPI_SERVER_LOCATION,
-        },
-    ]
+
 APP = TRAPI(
     **openapi_kwargs,
     docs_url="/",
@@ -61,7 +51,6 @@ APP.add_middleware(
 )
 
 LOGGER = logging.getLogger(__name__)
-
 
 @APP.exception_handler(Exception)
 async def exception_handler(request: Request, exc: Exception):
@@ -101,7 +90,7 @@ async def lookup(
         pass
     async with httpx.AsyncClient() as client:
         response = await client.post(
-            "https://automat.renci.org/robokopkg/1.2/query",
+            f"{settings.robokop_kg}/query",
             json=trapi_query,
             timeout=None,
         )
@@ -109,7 +98,7 @@ async def lookup(
             raise HTTPException(500, f"Failed doing lookup: {response.text}")
 
         response = await client.post(
-            "https://aragorn-ranker.renci.org/1.2/omnicorp_overlay",
+            f"{settings.aragorn_ranker}/omnicorp_overlay",
             json=response.json(),
             timeout=None,
         )
@@ -117,7 +106,7 @@ async def lookup(
             raise HTTPException(500, f"Failed doing overlay: {response.text}")
 
         response = await client.post(
-            "https://aragorn-ranker.renci.org/1.2/weight_correctness",
+            f"{settings.aragorn_ranker}/weight_correctness",
             json=response.json(),
             timeout=None,
         )
@@ -125,7 +114,7 @@ async def lookup(
             raise HTTPException(500, f"Failed doing weighting: {response.text}")
 
         response = await client.post(
-            "https://aragorn-ranker.renci.org/1.2/score",
+            f"{settings.aragorn_ranker}/score",
             json=response.json(),
             timeout=None,
         )
