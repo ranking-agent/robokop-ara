@@ -1,3 +1,5 @@
+# ARCHIVED: This is outdated and has been incorporated into the Aragorn repo.
+
 # ROBOKOP-ARA
 
 to deploy:
